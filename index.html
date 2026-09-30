@@ -1,0 +1,3012 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nari Care — Women's Health, Reimagined</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --blush: #f2c4c4;
+        --rose: #e8a0a0;
+        --deep-rose: #c97070;
+        --sage: #8fad8c;
+        --sage-light: #b5cdb3;
+        --sage-dark: #607a5e;
+        --gold: #c9a96e;
+        --gold-light: #e8d5b0;
+        --ivory: #fdf8f3;
+        --ivory-dark: #f5ede2;
+        --text-dark: #2d2420;
+        --text-mid: #6b5a54;
+        --text-light: #9e8a84;
+        --shadow-soft: 0 4px 24px rgba(180, 120, 100, 0.1);
+        --shadow-card: 0 8px 40px rgba(180, 120, 100, 0.13);
+        --radius: 20px;
+        --radius-sm: 12px;
+        --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        --topbar-h: 64px;
+        --sidebar-w: 248px;
+      }
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--ivory);
+        color: var(--text-dark);
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      /* ── TOPBAR ── */
+      .topbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 900;
+        height: var(--topbar-h);
+        background: rgba(253, 248, 243, 0.95);
+        backdrop-filter: blur(18px);
+        border-bottom: 1px solid rgba(201, 169, 110, 0.18);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        box-shadow: 0 2px 20px rgba(180, 120, 100, 0.07);
+      }
+      .logo {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.7rem;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        color: var(--text-dark);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .logo-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--deep-rose);
+        flex-shrink: 0;
+      }
+      .logo-tagline {
+        font-size: 0.68rem;
+        color: var(--text-light);
+        font-family: "DM Sans", sans-serif;
+        font-weight: 400;
+        display: none;
+      }
+      .nav-icons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .nav-icon-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        color: var(--text-mid);
+        transition: var(--transition);
+        position: relative;
+      }
+      .nav-icon-btn:hover {
+        background: var(--blush);
+        color: var(--deep-rose);
+      }
+      .cart-badge {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--deep-rose);
+        color: white;
+        font-size: 0.6rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* ── SHELL ── */
+      .app-shell {
+        display: flex;
+        padding-top: var(--topbar-h);
+        min-height: 100vh;
+      }
+
+      /* ── SIDEBAR (desktop only) ── */
+      .sidebar {
+        display: none;
+        flex-direction: column;
+        width: var(--sidebar-w);
+        min-height: calc(100vh - var(--topbar-h));
+        position: fixed;
+        top: var(--topbar-h);
+        left: 0;
+        background: rgba(253, 248, 243, 0.98);
+        border-right: 1px solid rgba(201, 169, 110, 0.16);
+        padding: 20px 14px;
+        gap: 3px;
+        overflow-y: auto;
+        z-index: 800;
+        box-shadow: 2px 0 20px rgba(180, 120, 100, 0.05);
+      }
+      .sidebar-label {
+        font-size: 0.63rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--text-light);
+        font-weight: 600;
+        padding: 12px 12px 5px;
+      }
+      .sidebar-tab {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 11px 13px;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        border: none;
+        background: none;
+        color: var(--text-mid);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.87rem;
+        font-weight: 500;
+        transition: var(--transition);
+        text-align: left;
+        width: 100%;
+      }
+      .sidebar-tab:hover {
+        background: rgba(232, 160, 160, 0.1);
+        color: var(--text-dark);
+      }
+      .sidebar-tab.active {
+        background: rgba(201, 112, 112, 0.12);
+        color: var(--deep-rose);
+        font-weight: 600;
+      }
+      .sidebar-tab-icon {
+        font-size: 1.05rem;
+        flex-shrink: 0;
+      }
+      .sidebar-divider {
+        height: 1px;
+        background: rgba(201, 169, 110, 0.15);
+        margin: 7px 0;
+      }
+
+      /* ── MAIN ── */
+      .main-content {
+        flex: 1;
+        padding-bottom: 80px;
+        min-width: 0;
+      }
+      .page-inner {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 16px;
+      }
+      .screen {
+        display: none;
+        padding-top: 16px;
+        padding-bottom: 28px;
+        animation: fadeIn 0.38s ease;
+      }
+      .screen.active {
+        display: block;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ── BOTTOM NAV ── */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 900;
+        background: rgba(253, 248, 243, 0.97);
+        backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(201, 169, 110, 0.2);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 5px 0 max(5px, env(safe-area-inset-bottom));
+        box-shadow: 0 -4px 24px rgba(180, 120, 100, 0.08);
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+      .bottom-nav::-webkit-scrollbar {
+        display: none;
+      }
+      .nav-tab {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        padding: 5px 7px;
+        border-radius: 11px;
+        cursor: pointer;
+        border: none;
+        background: none;
+        transition: var(--transition);
+        min-width: 46px;
+        color: var(--text-light);
+        flex-shrink: 0;
+      }
+      .nav-tab.active {
+        color: var(--deep-rose);
+        background: rgba(232, 160, 160, 0.15);
+      }
+      .nav-tab:hover:not(.active) {
+        background: rgba(232, 160, 160, 0.08);
+        color: var(--text-mid);
+      }
+      .nav-tab-icon {
+        font-size: 1.1rem;
+        line-height: 1;
+      }
+      .nav-tab-label {
+        font-size: 0.52rem;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      /* ── HERO ── */
+      .hero {
+        background: linear-gradient(
+          135deg,
+          #f9ede8 0%,
+          #f0dde8 50%,
+          #e8f0de 100%
+        );
+        border-radius: var(--radius);
+        padding: 28px 22px 36px;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 22px;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(201, 169, 110, 0.18) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+      .hero-badge {
+        display: inline-block;
+        background: rgba(201, 169, 110, 0.2);
+        color: var(--gold);
+        border: 1px solid rgba(201, 169, 110, 0.4);
+        border-radius: 20px;
+        padding: 4px 14px;
+        font-size: 0.7rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+      .hero h1 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2rem, 5vw, 3.2rem);
+        font-weight: 400;
+        line-height: 1.12;
+        color: var(--text-dark);
+        margin-bottom: 12px;
+      }
+      .hero h1 em {
+        font-style: italic;
+        color: var(--deep-rose);
+      }
+      .hero p {
+        font-size: 0.88rem;
+        color: var(--text-mid);
+        line-height: 1.65;
+        margin-bottom: 22px;
+        max-width: 480px;
+      }
+      .hero-cta {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .hero-emoji {
+        display: none;
+        font-size: 6rem;
+        opacity: 0.3;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* ── BUTTONS ── */
+      .btn-primary {
+        background: linear-gradient(135deg, var(--deep-rose), var(--rose));
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 11px 24px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: var(--transition);
+        letter-spacing: 0.02em;
+        box-shadow: 0 4px 16px rgba(201, 112, 112, 0.3);
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(201, 112, 112, 0.4);
+      }
+      .btn-outline {
+        background: transparent;
+        color: var(--sage-dark);
+        border: 1.5px solid var(--sage);
+        border-radius: 50px;
+        padding: 10px 22px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+      .btn-outline:hover {
+        background: var(--sage-light);
+        color: white;
+        border-color: var(--sage);
+      }
+      .full-btn {
+        width: 100%;
+        padding: 13px;
+        border-radius: 50px;
+        background: linear-gradient(135deg, var(--deep-rose), var(--rose));
+        color: white;
+        border: none;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: var(--transition);
+        box-shadow: 0 4px 16px rgba(201, 112, 112, 0.3);
+      }
+      .full-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(201, 112, 112, 0.4);
+      }
+      .full-btn-green {
+        background: linear-gradient(135deg, var(--sage-dark), var(--sage));
+        box-shadow: 0 4px 16px rgba(96, 122, 94, 0.3);
+      }
+      .full-btn-green:hover {
+        box-shadow: 0 8px 24px rgba(96, 122, 94, 0.4);
+      }
+
+      /* ── SECTION HEADER ── */
+      .section-header {
+        margin-bottom: 15px;
+      }
+      .section-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 500;
+        color: var(--text-dark);
+      }
+      .section-sub {
+        font-size: 0.79rem;
+        color: var(--text-light);
+        margin-top: 3px;
+      }
+
+      /* ── STATS ── */
+      .quick-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-bottom: 22px;
+      }
+      .stat-card {
+        background: white;
+        border-radius: var(--radius-sm);
+        padding: 14px 10px;
+        text-align: center;
+        box-shadow: var(--shadow-soft);
+        border: 1px solid rgba(201, 169, 110, 0.12);
+      }
+      .stat-num {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(1.4rem, 3vw, 2rem);
+        font-weight: 500;
+        color: var(--deep-rose);
+      }
+      .stat-label {
+        font-size: 0.68rem;
+        color: var(--text-light);
+        margin-top: 2px;
+      }
+
+      /* ── PRODUCTS ── */
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 13px;
+        margin-bottom: 22px;
+      }
+      .product-card {
+        background: white;
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: var(--shadow-soft);
+        border: 1px solid rgba(245, 237, 226, 0.8);
+        transition: var(--transition);
+        cursor: pointer;
+      }
+      .product-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-card);
+      }
+      .product-img {
+        width: 100%;
+        height: 135px;
+        background: linear-gradient(135deg, var(--ivory-dark), var(--blush));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.7rem;
+        position: relative;
+      }
+      .eco-badge {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background: rgba(143, 173, 140, 0.9);
+        color: white;
+        border-radius: 10px;
+        padding: 3px 8px;
+        font-size: 0.63rem;
+        font-weight: 500;
+      }
+      .product-body {
+        padding: 11px;
+      }
+      .product-name {
+        font-weight: 600;
+        font-size: 0.83rem;
+        color: var(--text-dark);
+        margin-bottom: 3px;
+      }
+      .product-desc {
+        font-size: 0.73rem;
+        color: var(--text-light);
+        line-height: 1.5;
+        margin-bottom: 8px;
+      }
+      .product-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .product-price {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: var(--deep-rose);
+      }
+      .add-btn {
+        width: 29px;
+        height: 29px;
+        border-radius: 50%;
+        background: var(--deep-rose);
+        color: white;
+        border: none;
+        font-size: 1.1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+      }
+      .add-btn:hover {
+        background: var(--sage-dark);
+        transform: scale(1.1);
+      }
+      .eco-icons {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+        margin-bottom: 5px;
+      }
+      .eco-chip {
+        background: rgba(143, 173, 140, 0.12);
+        color: var(--sage-dark);
+        border-radius: 7px;
+        padding: 2px 6px;
+        font-size: 0.61rem;
+      }
+
+      /* ── ACTION GRID ── */
+      .action-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      .action-btn {
+        padding: 13px 10px;
+        border-radius: var(--radius-sm);
+        border: none;
+        cursor: pointer;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.82rem;
+        font-weight: 500;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+      .action-btn-rose {
+        background: linear-gradient(135deg, var(--deep-rose), var(--rose));
+        color: white;
+        box-shadow: 0 4px 14px rgba(201, 112, 112, 0.25);
+      }
+      .action-btn-rose:hover {
+        transform: translateY(-2px);
+      }
+      .action-btn-outline {
+        background: white;
+        color: var(--sage-dark);
+        border: 1.5px solid rgba(143, 173, 140, 0.4);
+        box-shadow: var(--shadow-soft);
+      }
+      .action-btn-outline:hover {
+        background: var(--sage-light);
+        color: white;
+      }
+      .action-btn-sage {
+        background: linear-gradient(135deg, var(--sage-dark), var(--sage));
+        color: white;
+        box-shadow: 0 4px 14px rgba(96, 122, 94, 0.25);
+      }
+
+      /* ── SEARCH + FILTERS ── */
+      .search-bar {
+        background: white;
+        border: 1.5px solid rgba(201, 169, 110, 0.2);
+        border-radius: 50px;
+        padding: 9px 15px;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 13px;
+        box-shadow: var(--shadow-soft);
+      }
+      .search-bar input {
+        flex: 1;
+        background: none;
+        border: none;
+        outline: none;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.85rem;
+        color: var(--text-dark);
+      }
+      .search-icon {
+        color: var(--text-light);
+        font-size: 0.9rem;
+      }
+      .filter-row {
+        display: flex;
+        gap: 7px;
+        margin-bottom: 13px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+      }
+      .filter-row::-webkit-scrollbar {
+        display: none;
+      }
+      .filter-chip {
+        padding: 6px 13px;
+        border-radius: 20px;
+        border: 1.5px solid rgba(201, 169, 110, 0.2);
+        background: white;
+        font-size: 0.77rem;
+        color: var(--text-mid);
+        cursor: pointer;
+        white-space: nowrap;
+        transition: var(--transition);
+        flex-shrink: 0;
+      }
+      .filter-chip.active {
+        background: var(--deep-rose);
+        color: white;
+        border-color: var(--deep-rose);
+      }
+
+      /* ── COMMUNITY CHAT ── */
+      .chat-container {
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - var(--topbar-h) - 80px);
+        background: white;
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: var(--shadow-card);
+      }
+      .chat-header {
+        background: linear-gradient(135deg, var(--blush), var(--ivory-dark));
+        padding: 15px 18px;
+        border-bottom: 1px solid rgba(201, 169, 110, 0.15);
+        flex-shrink: 0;
+      }
+      .chat-header h2 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.35rem;
+        font-weight: 500;
+      }
+      .chat-header p {
+        font-size: 0.76rem;
+        color: var(--text-mid);
+      }
+      .online-count {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 4px;
+      }
+      .online-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--sage);
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+      .online-text {
+        font-size: 0.71rem;
+        color: var(--sage-dark);
+      }
+      .chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 13px;
+        display: flex;
+        flex-direction: column;
+        gap: 11px;
+        background: var(--ivory);
+        scrollbar-width: thin;
+        scrollbar-color: var(--blush) transparent;
+      }
+      .chat-messages::-webkit-scrollbar {
+        width: 4px;
+      }
+      .chat-messages::-webkit-scrollbar-thumb {
+        background: var(--blush);
+        border-radius: 2px;
+      }
+      .msg {
+        display: flex;
+        gap: 8px;
+        align-items: flex-start;
+      }
+      .msg.own {
+        flex-direction: row-reverse;
+      }
+      .msg-avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.78rem;
+        font-weight: 600;
+        background: linear-gradient(135deg, var(--blush), var(--rose));
+        color: var(--deep-rose);
+      }
+      .msg-bubble {
+        max-width: 75%;
+        background: white;
+        border-radius: 16px 16px 16px 4px;
+        padding: 9px 12px;
+        box-shadow: 0 2px 8px rgba(180, 120, 100, 0.08);
+      }
+      .msg.own .msg-bubble {
+        background: linear-gradient(135deg, var(--deep-rose), var(--rose));
+        color: white;
+        border-radius: 16px 16px 4px 16px;
+      }
+      .msg-name {
+        font-size: 0.67rem;
+        font-weight: 600;
+        color: var(--text-light);
+        margin-bottom: 3px;
+      }
+      .msg.own .msg-name {
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .msg-text {
+        font-size: 0.82rem;
+        line-height: 1.5;
+      }
+      .msg-time {
+        font-size: 0.62rem;
+        color: var(--text-light);
+        margin-top: 3px;
+        text-align: right;
+      }
+      .msg.own .msg-time {
+        color: rgba(255, 255, 255, 0.65);
+      }
+      .chat-input-row {
+        display: flex;
+        gap: 9px;
+        padding: 11px 13px;
+        background: white;
+        border-top: 1px solid rgba(201, 169, 110, 0.12);
+        align-items: center;
+        flex-shrink: 0;
+      }
+      .chat-input {
+        flex: 1;
+        background: var(--ivory);
+        border: 1.5px solid rgba(201, 169, 110, 0.2);
+        border-radius: 50px;
+        padding: 9px 14px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.84rem;
+        color: var(--text-dark);
+        outline: none;
+        transition: var(--transition);
+      }
+      .chat-input:focus {
+        border-color: var(--rose);
+        background: white;
+      }
+      .send-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--deep-rose);
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 0.9rem;
+        transition: var(--transition);
+        flex-shrink: 0;
+      }
+      .send-btn:hover {
+        background: var(--sage-dark);
+        transform: scale(1.05);
+      }
+
+      /* ── TRACKER ── */
+      .tracker-card {
+        background: white;
+        border-radius: var(--radius);
+        padding: 17px;
+        box-shadow: var(--shadow-card);
+        margin-bottom: 15px;
+        border: 1px solid rgba(201, 169, 110, 0.12);
+      }
+      .cycle-visual {
+        display: flex;
+        justify-content: center;
+        margin: 14px 0;
+      }
+      .cycle-ring {
+        width: 165px;
+        height: 165px;
+        border-radius: 50%;
+        border: 11px solid var(--ivory-dark);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      .cycle-ring-progress {
+        position: absolute;
+        top: -6px;
+        left: -6px;
+        width: 177px;
+        height: 177px;
+        border-radius: 50%;
+        border: 11px solid transparent;
+        border-top-color: var(--deep-rose);
+        border-right-color: var(--rose);
+        transform: rotate(-45deg);
+        transition: transform 0.6s ease;
+      }
+      .cycle-day {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 2.8rem;
+        font-weight: 400;
+        color: var(--deep-rose);
+        line-height: 1;
+      }
+      .cycle-label {
+        font-size: 0.7rem;
+        color: var(--text-light);
+        font-weight: 500;
+      }
+      .phase-indicator {
+        display: flex;
+        gap: 6px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 13px 0;
+      }
+      .phase-pill {
+        padding: 5px 11px;
+        border-radius: 20px;
+        font-size: 0.72rem;
+        font-weight: 500;
+        cursor: pointer;
+        border: 1.5px solid transparent;
+        transition: var(--transition);
+      }
+      .phase-menstrual {
+        background: rgba(232, 160, 160, 0.2);
+        color: var(--deep-rose);
+        border-color: var(--rose);
+      }
+      .phase-follicular {
+        background: rgba(201, 169, 110, 0.15);
+        color: var(--gold);
+        border-color: var(--gold-light);
+      }
+      .phase-ovulation {
+        background: rgba(143, 173, 140, 0.2);
+        color: var(--sage-dark);
+        border-color: var(--sage-light);
+      }
+      .phase-luteal {
+        background: rgba(180, 120, 100, 0.12);
+        color: #8a5a50;
+        border-color: rgba(180, 120, 100, 0.3);
+      }
+      .phase-active {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      .tracker-row {
+        display: flex;
+        gap: 9px;
+        margin-bottom: 11px;
+        flex-wrap: wrap;
+      }
+      .tracker-input-group {
+        flex: 1;
+        min-width: 120px;
+      }
+      .tracker-input-group label {
+        font-size: 0.73rem;
+        color: var(--text-light);
+        margin-bottom: 5px;
+        display: block;
+        font-weight: 500;
+      }
+      .tracker-input,
+      .form-input,
+      .form-select,
+      .form-textarea {
+        width: 100%;
+        background: var(--ivory);
+        border: 1.5px solid rgba(201, 169, 110, 0.2);
+        border-radius: var(--radius-sm);
+        padding: 9px 12px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.83rem;
+        color: var(--text-dark);
+        outline: none;
+        transition: var(--transition);
+      }
+      .tracker-input:focus,
+      .form-input:focus,
+      .form-select:focus,
+      .form-textarea:focus {
+        border-color: var(--rose);
+        background: white;
+      }
+      .form-textarea {
+        height: 78px;
+        resize: none;
+      }
+      .symptoms-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        margin: 9px 0;
+      }
+      .symptom-chip {
+        padding: 7px 4px;
+        border-radius: var(--radius-sm);
+        background: var(--ivory);
+        border: 1.5px solid rgba(201, 169, 110, 0.15);
+        text-align: center;
+        cursor: pointer;
+        transition: var(--transition);
+        font-size: 0.69rem;
+        color: var(--text-mid);
+      }
+      .symptom-chip.selected {
+        background: rgba(232, 160, 160, 0.2);
+        border-color: var(--rose);
+        color: var(--deep-rose);
+      }
+      .sym-icon {
+        font-size: 1.05rem;
+        display: block;
+        margin-bottom: 3px;
+      }
+      .calendar-mini {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 3px;
+        margin-top: 12px;
+      }
+      .cal-day-label {
+        font-size: 0.6rem;
+        color: var(--text-light);
+        text-align: center;
+        font-weight: 600;
+        padding: 2px 0;
+      }
+      .cal-day {
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.68rem;
+        color: var(--text-mid);
+        cursor: pointer;
+        transition: var(--transition);
+        border: 1.5px solid transparent;
+      }
+      .cal-day:hover {
+        background: var(--ivory-dark);
+      }
+      .cal-day.period {
+        background: rgba(232, 160, 160, 0.45);
+        color: var(--deep-rose);
+        font-weight: 600;
+      }
+      .cal-day.ovulation {
+        background: rgba(143, 173, 140, 0.35);
+        color: var(--sage-dark);
+        font-weight: 600;
+      }
+      .cal-day.today {
+        border-color: var(--deep-rose);
+        font-weight: 700;
+        color: var(--deep-rose);
+      }
+      .cal-day.fertile {
+        background: rgba(143, 173, 140, 0.14);
+      }
+      .legend-row {
+        display: flex;
+        gap: 13px;
+        flex-wrap: wrap;
+        margin-top: 11px;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.68rem;
+        color: var(--text-light);
+      }
+      .legend-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      /* ── TRACKER LAYOUT (mobile: stacked, tablet+: 2col) ── */
+      .tracker-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      /* ── DOCTOR ── */
+      .doctors-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .doctor-card {
+        background: white;
+        border-radius: var(--radius);
+        padding: 14px;
+        box-shadow: var(--shadow-soft);
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        margin-bottom: 10px;
+        border: 1px solid rgba(201, 169, 110, 0.1);
+        transition: var(--transition);
+        cursor: pointer;
+      }
+      .doctor-card:hover {
+        box-shadow: var(--shadow-card);
+        transform: translateY(-2px);
+      }
+      .doctor-avatar {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        background: linear-gradient(135deg, var(--blush), var(--rose));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.45rem;
+      }
+      .doctor-name {
+        font-weight: 600;
+        font-size: 0.89rem;
+        color: var(--text-dark);
+      }
+      .doctor-specialty {
+        font-size: 0.76rem;
+        color: var(--sage-dark);
+        margin: 2px 0;
+      }
+      .doctor-rating {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 0.73rem;
+        color: var(--gold);
+      }
+      .doctor-meta {
+        font-size: 0.71rem;
+        color: var(--text-light);
+        margin-top: 4px;
+      }
+      .avail-badge {
+        background: rgba(143, 173, 140, 0.15);
+        color: var(--sage-dark);
+        border-radius: 8px;
+        padding: 3px 9px;
+        font-size: 0.67rem;
+        font-weight: 500;
+        margin-top: 5px;
+        display: inline-block;
+      }
+      .time-slots {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-top: 9px;
+      }
+      .time-slot {
+        padding: 6px 12px;
+        border-radius: 20px;
+        background: var(--ivory);
+        border: 1.5px solid rgba(201, 169, 110, 0.2);
+        font-size: 0.74rem;
+        color: var(--text-mid);
+        cursor: pointer;
+        transition: var(--transition);
+      }
+      .time-slot:hover,
+      .time-slot.selected {
+        background: var(--deep-rose);
+        color: white;
+        border-color: var(--deep-rose);
+      }
+
+      /* ── BOOKING MODAL ── */
+      .booking-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 2000;
+        background: rgba(45, 36, 32, 0.5);
+        backdrop-filter: blur(6px);
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+      }
+      .booking-modal.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .booking-sheet {
+        background: var(--ivory);
+        border-radius: 28px 28px 0 0;
+        padding: 20px 20px 40px;
+        width: 100%;
+        max-width: 520px;
+        transform: translateY(100%);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .booking-modal.open .booking-sheet {
+        transform: translateY(0);
+      }
+      .sheet-handle {
+        width: 40px;
+        height: 4px;
+        border-radius: 2px;
+        background: rgba(201, 169, 110, 0.3);
+        margin: 0 auto 17px;
+      }
+
+      /* ── LOCATOR ── */
+      .map-placeholder {
+        background: linear-gradient(
+          135deg,
+          var(--ivory-dark),
+          var(--sage-light)
+        );
+        border-radius: var(--radius);
+        height: 185px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 16px;
+        border: 1px solid rgba(143, 173, 140, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+      .map-placeholder::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 12px,
+          rgba(143, 173, 140, 0.06) 12px,
+          rgba(143, 173, 140, 0.06) 24px
+        );
+      }
+      .map-icon {
+        font-size: 2.3rem;
+        position: relative;
+      }
+      .map-text {
+        font-size: 0.82rem;
+        color: var(--sage-dark);
+        font-weight: 500;
+        position: relative;
+      }
+      .locations-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .location-card {
+        background: white;
+        border-radius: var(--radius);
+        padding: 14px;
+        margin-bottom: 9px;
+        box-shadow: var(--shadow-soft);
+        border: 1px solid rgba(201, 169, 110, 0.1);
+        display: flex;
+        gap: 11px;
+        align-items: flex-start;
+      }
+      .location-icon-wrap {
+        width: 42px;
+        height: 42px;
+        border-radius: var(--radius-sm);
+        background: rgba(232, 160, 160, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
+        flex-shrink: 0;
+      }
+      .loc-name {
+        font-weight: 600;
+        font-size: 0.86rem;
+        margin-bottom: 2px;
+      }
+      .loc-addr {
+        font-size: 0.74rem;
+        color: var(--text-light);
+        line-height: 1.4;
+      }
+      .loc-dist {
+        font-size: 0.71rem;
+        color: var(--sage-dark);
+        font-weight: 500;
+        margin-top: 4px;
+      }
+      .loc-type-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 7px;
+        font-size: 0.61rem;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        margin-bottom: 3px;
+      }
+      .type-vm {
+        background: rgba(201, 169, 110, 0.15);
+        color: var(--gold);
+      }
+      .type-store {
+        background: rgba(143, 173, 140, 0.15);
+        color: var(--sage-dark);
+      }
+
+      /* ── PICKUP ── */
+      .pickup-hero {
+        background: linear-gradient(135deg, #e8f0de, #d8e8d5);
+        border-radius: var(--radius);
+        padding: 22px;
+        margin-bottom: 16px;
+        position: relative;
+        overflow: hidden;
+      }
+      .pickup-hero h2 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.8rem;
+        font-weight: 400;
+        color: var(--sage-dark);
+        margin-bottom: 6px;
+      }
+      .pickup-hero p {
+        font-size: 0.81rem;
+        color: var(--sage-dark);
+        opacity: 0.85;
+        line-height: 1.55;
+        max-width: 280px;
+      }
+      .pickup-hero-icon {
+        font-size: 4rem;
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0.35;
+      }
+      .pickup-form-card {
+        background: white;
+        border-radius: var(--radius);
+        padding: 17px;
+        box-shadow: var(--shadow-soft);
+        margin-bottom: 13px;
+      }
+      .pickup-form-card h3 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.2rem;
+        margin-bottom: 13px;
+      }
+      .form-group {
+        margin-bottom: 11px;
+      }
+      .form-group label {
+        font-size: 0.75rem;
+        color: var(--text-mid);
+        margin-bottom: 5px;
+        display: block;
+        font-weight: 500;
+      }
+      .form-row-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+      }
+      .impact-card {
+        background: linear-gradient(
+          135deg,
+          rgba(143, 173, 140, 0.12),
+          rgba(143, 173, 140, 0.04)
+        );
+        border: 1px solid rgba(143, 173, 140, 0.25);
+        border-radius: var(--radius);
+        padding: 14px;
+        margin-bottom: 13px;
+        display: flex;
+        gap: 11px;
+      }
+      .impact-icon {
+        font-size: 1.8rem;
+        flex-shrink: 0;
+      }
+      .impact-title {
+        font-weight: 600;
+        font-size: 0.83rem;
+        color: var(--sage-dark);
+        margin-bottom: 3px;
+      }
+      .impact-desc {
+        font-size: 0.76rem;
+        color: var(--text-mid);
+        line-height: 1.55;
+      }
+      .pickup-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      /* ── CART ── */
+      .cart-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 1500;
+        background: rgba(45, 36, 32, 0.4);
+        backdrop-filter: blur(4px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+      }
+      .cart-overlay.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .cart-drawer {
+        position: fixed;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 1600;
+        width: min(355px, 92vw);
+        background: var(--ivory);
+        transform: translateX(100%);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      .cart-overlay.open .cart-drawer {
+        transform: translateX(0);
+      }
+      .cart-drawer-header {
+        padding: 17px;
+        background: white;
+        border-bottom: 1px solid rgba(201, 169, 110, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .cart-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.32rem;
+        font-weight: 500;
+      }
+      .cart-close {
+        background: none;
+        border: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        color: var(--text-mid);
+      }
+      .cart-items {
+        flex: 1;
+        overflow-y: auto;
+        padding: 13px;
+      }
+      .cart-item {
+        background: white;
+        border-radius: var(--radius-sm);
+        padding: 11px;
+        margin-bottom: 9px;
+        display: flex;
+        gap: 9px;
+        align-items: center;
+        box-shadow: var(--shadow-soft);
+      }
+      .cart-item-img {
+        width: 46px;
+        height: 46px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--ivory-dark), var(--blush));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        flex-shrink: 0;
+      }
+      .cart-item-name {
+        font-weight: 500;
+        font-size: 0.82rem;
+      }
+      .cart-item-price {
+        font-size: 0.78rem;
+        color: var(--deep-rose);
+        font-weight: 600;
+      }
+      .cart-qty {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 4px;
+      }
+      .qty-btn {
+        width: 21px;
+        height: 21px;
+        border-radius: 50%;
+        border: 1.5px solid var(--rose);
+        background: none;
+        cursor: pointer;
+        color: var(--deep-rose);
+        font-size: 0.88rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+      }
+      .qty-btn:hover {
+        background: var(--rose);
+        color: white;
+      }
+      .qty-num {
+        font-size: 0.84rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        min-width: 16px;
+        text-align: center;
+      }
+      .cart-footer {
+        padding: 13px 17px;
+        background: white;
+        border-top: 1px solid rgba(201, 169, 110, 0.15);
+      }
+      .cart-total {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+      .cart-total-label {
+        font-size: 0.83rem;
+        color: var(--text-light);
+      }
+      .cart-total-val {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.22rem;
+        font-weight: 500;
+        color: var(--deep-rose);
+      }
+
+      /* ── TOAST ── */
+      .toast {
+        position: fixed;
+        bottom: 96px;
+        left: 50%;
+        transform: translateX(-50%) translateY(14px);
+        background: var(--text-dark);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 50px;
+        font-size: 0.81rem;
+        z-index: 3000;
+        opacity: 0;
+        transition: all 0.3s;
+        pointer-events: none;
+        white-space: nowrap;
+        box-shadow: 0 4px 20px rgba(45, 36, 32, 0.25);
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+      .empty-state {
+        text-align: center;
+        padding: 34px 18px;
+        color: var(--text-light);
+      }
+      .empty-icon {
+        font-size: 2.6rem;
+        margin-bottom: 8px;
+      }
+      .empty-text {
+        font-size: 0.84rem;
+        line-height: 1.6;
+      }
+      .divider {
+        height: 1px;
+        background: rgba(201, 169, 110, 0.15);
+        margin: 16px 0;
+      }
+
+      /* ═══════════════════════════════════════
+   TABLET  641px – 1023px
+═══════════════════════════════════════ */
+      @media (min-width: 641px) {
+        :root {
+          --topbar-h: 68px;
+        }
+        .page-inner {
+          padding: 0 24px;
+        }
+        .logo-tagline {
+          display: block;
+        }
+
+        /* hero splits */
+        .hero {
+          padding: 36px 32px 44px;
+          display: grid;
+          grid-template-columns: 1fr 180px;
+          gap: 20px;
+          align-items: center;
+        }
+        .hero-emoji {
+          display: flex;
+        }
+        .hero h1 {
+          font-size: 2.6rem;
+        }
+        .hero p {
+          font-size: 0.93rem;
+        }
+
+        /* wider grids */
+        .products-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 15px;
+        }
+        .product-img {
+          height: 150px;
+          font-size: 3rem;
+        }
+        .quick-stats {
+          gap: 13px;
+        }
+        .stat-num {
+          font-size: 1.9rem;
+        }
+        .action-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        .symptoms-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+
+        /* tracker 2-col */
+        .tracker-layout {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 15px;
+          align-items: start;
+        }
+
+        /* locator 2-col */
+        .locations-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+        }
+        .location-card {
+          margin-bottom: 0;
+        }
+
+        /* doctors 2-col */
+        .doctors-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+        }
+        .doctor-card {
+          margin-bottom: 0;
+        }
+
+        /* pickup 2-col */
+        .pickup-layout {
+          display: grid;
+          grid-template-columns: 3fr 2fr;
+          gap: 16px;
+          align-items: start;
+        }
+
+        .chat-container {
+          height: calc(100vh - var(--topbar-h) - 92px);
+        }
+        .nav-tab {
+          min-width: 56px;
+          padding: 6px 12px;
+        }
+        .nav-tab-label {
+          font-size: 0.58rem;
+        }
+      }
+
+      /* ═══════════════════════════════════════
+   DESKTOP  1024px+
+═══════════════════════════════════════ */
+      @media (min-width: 1024px) {
+        :root {
+          --topbar-h: 68px;
+          --sidebar-w: 252px;
+        }
+
+        /* show sidebar, hide bottom nav */
+        .sidebar {
+          display: flex;
+        }
+        .bottom-nav {
+          display: none;
+        }
+
+        .topbar {
+          padding: 0 30px;
+        }
+        .nav-icons {
+          gap: 13px;
+        }
+
+        /* shift content */
+        .main-content {
+          margin-left: var(--sidebar-w);
+          padding-bottom: 40px;
+        }
+        .screen {
+          padding-top: 30px;
+          padding-bottom: 40px;
+        }
+        .page-inner {
+          max-width: 960px;
+          padding: 0 32px;
+        }
+
+        /* hero */
+        .hero {
+          padding: 48px 48px 56px;
+          grid-template-columns: 1fr 260px;
+          gap: 28px;
+        }
+        .hero-emoji {
+          font-size: 7rem;
+        }
+        .hero h1 {
+          font-size: 3rem;
+        }
+
+        /* stats */
+        .stat-card {
+          padding: 18px 14px;
+        }
+        .stat-num {
+          font-size: 2.1rem;
+        }
+
+        /* products — 4 across on shop, 4 on home */
+        #allProductsGrid {
+          grid-template-columns: repeat(4, 1fr) !important;
+        }
+        #featuredGrid {
+          grid-template-columns: repeat(4, 1fr) !important;
+        }
+        .product-img {
+          height: 155px;
+        }
+
+        /* action */
+        .action-grid {
+          grid-template-columns: repeat(4, 1fr);
+          gap: 13px;
+        }
+        .action-btn {
+          padding: 15px;
+          font-size: 0.86rem;
+        }
+
+        /* tracker */
+        .cycle-ring {
+          width: 178px;
+          height: 178px;
+        }
+        .cycle-ring-progress {
+          width: 190px;
+          height: 190px;
+        }
+        .cycle-day {
+          font-size: 3rem;
+        }
+
+        /* booking — centered dialog */
+        .booking-modal {
+          align-items: center;
+        }
+        .booking-sheet {
+          border-radius: var(--radius);
+          max-width: 460px;
+          transform: scale(0.88) translateY(0);
+          opacity: 0;
+          transition:
+            transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+            opacity 0.3s;
+        }
+        .booking-modal.open .booking-sheet {
+          transform: scale(1);
+          opacity: 1;
+        }
+
+        /* chat */
+        .chat-container {
+          height: calc(100vh - var(--topbar-h) - 70px);
+        }
+
+        /* toast */
+        .toast {
+          bottom: 36px;
+        }
+      }
+
+      /* ═══════════════════════════════════════
+   WIDE DESKTOP  1400px+
+═══════════════════════════════════════ */
+      @media (min-width: 1400px) {
+        :root {
+          --sidebar-w: 272px;
+        }
+        .page-inner {
+          max-width: 1080px;
+        }
+        .hero {
+          padding: 56px 56px 64px;
+        }
+        .hero h1 {
+          font-size: 3.4rem;
+        }
+        #allProductsGrid {
+          grid-template-columns: repeat(4, 1fr) !important;
+        }
+      }
+
+      /* ═══════════════════════════════════════
+   SMALL MOBILE  ≤360px
+═══════════════════════════════════════ */
+      @media (max-width: 360px) {
+        :root {
+          --topbar-h: 58px;
+        }
+        .logo {
+          font-size: 1.4rem;
+        }
+        .nav-icon-btn {
+          width: 34px;
+          height: 34px;
+        }
+        .hero h1 {
+          font-size: 1.8rem;
+        }
+        .hero {
+          padding: 22px 16px 28px;
+        }
+        .products-grid {
+          gap: 9px;
+        }
+        .product-img {
+          height: 110px;
+          font-size: 2.2rem;
+        }
+        .action-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .symptoms-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .phase-pill {
+          font-size: 0.66rem;
+          padding: 4px 8px;
+        }
+        .nav-tab {
+          min-width: 42px;
+          padding: 4px 5px;
+        }
+        .nav-tab-label {
+          font-size: 0.48rem;
+        }
+        .stat-num {
+          font-size: 1.3rem;
+        }
+        .quick-stats {
+          gap: 7px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <div class="logo">
+        <span class="logo-dot"></span>Nari Care
+        <span class="logo-tagline">— Women's Health, Reimagined</span>
+      </div>
+      <div class="nav-icons">
+        <button class="nav-icon-btn" onclick="toggleCart()" title="Cart">
+          🛒<span class="cart-badge" id="cartBadge">0</span>
+        </button>
+        <button class="nav-icon-btn" title="Notifications">🔔</button>
+        <button class="nav-icon-btn" title="Profile">👤</button>
+      </div>
+    </header>
+
+    <div class="app-shell">
+      <!-- DESKTOP SIDEBAR -->
+      <nav class="sidebar">
+        <div class="sidebar-label">Main</div>
+        <button
+          class="sidebar-tab active"
+          onclick="goTo('home')"
+          id="stab-home"
+        >
+          <span class="sidebar-tab-icon">🏠</span>Home
+        </button>
+        <button
+          class="sidebar-tab"
+          onclick="goTo('products')"
+          id="stab-products"
+        >
+          <span class="sidebar-tab-icon">🛍️</span>Shop
+        </button>
+        <button class="sidebar-tab" onclick="goTo('tracker')" id="stab-tracker">
+          <span class="sidebar-tab-icon">🌸</span>Cycle Tracker
+        </button>
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-label">Services</div>
+        <button class="sidebar-tab" onclick="goTo('doctor')" id="stab-doctor">
+          <span class="sidebar-tab-icon">👩‍⚕️</span>Doctor Consult
+        </button>
+        <button class="sidebar-tab" onclick="goTo('locator')" id="stab-locator">
+          <span class="sidebar-tab-icon">📍</span>Store Locator
+        </button>
+        <button class="sidebar-tab" onclick="goTo('pickup')" id="stab-pickup">
+          <span class="sidebar-tab-icon">♻️</span>Pad Pickup
+        </button>
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-label">Community</div>
+        <button
+          class="sidebar-tab"
+          onclick="goTo('community')"
+          id="stab-community"
+        >
+          <span class="sidebar-tab-icon">💬</span>Community Chat
+        </button>
+      </nav>
+
+      <main class="main-content">
+        <!-- HOME -->
+        <section class="screen active" id="screen-home">
+          <div class="page-inner">
+            <div class="hero">
+              <div>
+                <div class="hero-badge">🌸 Women's Health Platform</div>
+                <h1>Your health,<br /><em>your power</em></h1>
+                <p>
+                  Premium, sustainable menstrual care & wellness — designed with
+                  you, for you.
+                </p>
+                <div class="hero-cta">
+                  <button class="btn-primary" onclick="goTo('products')">
+                    Shop Now
+                  </button>
+                  <button class="btn-outline" onclick="goTo('tracker')">
+                    Track Cycle
+                  </button>
+                </div>
+              </div>
+              <div class="hero-emoji">🌸</div>
+            </div>
+            <div class="quick-stats">
+              <div class="stat-card">
+                <div class="stat-num">50K+</div>
+                <div class="stat-label">Women Served</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-num">100%</div>
+                <div class="stat-label">Organic</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-num">40+</div>
+                <div class="stat-label">Cities</div>
+              </div>
+            </div>
+            <div class="section-header">
+              <div class="section-title">Featured Products</div>
+              <div class="section-sub">Curated for your wellbeing</div>
+            </div>
+            <div class="products-grid" id="featuredGrid"></div>
+            <div class="section-header">
+              <div class="section-title">Quick Actions</div>
+            </div>
+            <div class="action-grid">
+              <button
+                class="action-btn action-btn-rose"
+                onclick="goTo('doctor')"
+              >
+                👩‍⚕️ Book Doctor
+              </button>
+              <button
+                class="action-btn action-btn-outline"
+                onclick="goTo('pickup')"
+              >
+                ♻️ Pad Pickup
+              </button>
+              <button
+                class="action-btn action-btn-outline"
+                onclick="goTo('locator')"
+              >
+                📍 Find Store
+              </button>
+              <button
+                class="action-btn action-btn-sage"
+                onclick="goTo('community')"
+              >
+                💬 Community
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- SHOP -->
+        <section class="screen" id="screen-products">
+          <div class="page-inner">
+            <div class="section-header">
+              <div class="section-title">Our Collection</div>
+              <div class="section-sub">Sustainable · Organic · Empowering</div>
+            </div>
+            <div class="search-bar">
+              <span class="search-icon">🔍</span
+              ><input
+                type="text"
+                placeholder="Search products…"
+                oninput="filterProducts(this.value)"
+              />
+            </div>
+            <div class="filter-row" id="filterRow">
+              <div class="filter-chip active" onclick="setFilter('all', this)">
+                All
+              </div>
+              <div class="filter-chip" onclick="setFilter('pads', this)">
+                Pads
+              </div>
+              <div class="filter-chip" onclick="setFilter('cups', this)">
+                Cups
+              </div>
+              <div class="filter-chip" onclick="setFilter('wellness', this)">
+                Wellness
+              </div>
+              <div class="filter-chip" onclick="setFilter('hygiene', this)">
+                Hygiene
+              </div>
+            </div>
+            <div class="products-grid" id="allProductsGrid"></div>
+          </div>
+        </section>
+
+        <!-- TRACKER -->
+        <section class="screen" id="screen-tracker">
+          <div class="page-inner">
+            <div class="section-header">
+              <div class="section-title">Cycle Tracker</div>
+              <div class="section-sub">Know your body, love yourself</div>
+            </div>
+            <div class="tracker-layout">
+              <div>
+                <div class="tracker-card">
+                  <div class="cycle-visual">
+                    <div class="cycle-ring">
+                      <div class="cycle-ring-progress" id="cycleProgress"></div>
+                      <div class="cycle-day" id="cycleDay">14</div>
+                      <div class="cycle-label">Day of Cycle</div>
+                    </div>
+                  </div>
+                  <div class="phase-indicator">
+                    <div
+                      class="phase-pill phase-menstrual phase-active"
+                      onclick="setPhase(this)"
+                    >
+                      🌊 Menstrual
+                    </div>
+                    <div
+                      class="phase-pill phase-follicular"
+                      onclick="setPhase(this)"
+                    >
+                      🌱 Follicular
+                    </div>
+                    <div
+                      class="phase-pill phase-ovulation"
+                      onclick="setPhase(this)"
+                    >
+                      ✨ Ovulation
+                    </div>
+                    <div
+                      class="phase-pill phase-luteal"
+                      onclick="setPhase(this)"
+                    >
+                      🌙 Luteal
+                    </div>
+                  </div>
+                  <div class="tracker-row">
+                    <div class="tracker-input-group">
+                      <label>Period Start Date</label
+                      ><input
+                        type="date"
+                        class="tracker-input"
+                        id="periodStart"
+                        onchange="updateCycle()"
+                      />
+                    </div>
+                    <div class="tracker-input-group">
+                      <label>Cycle Length</label
+                      ><input
+                        type="number"
+                        class="tracker-input"
+                        value="28"
+                        min="21"
+                        max="35"
+                        id="cycleLen"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="tracker-card">
+                  <div
+                    style="
+                      font-size: 0.81rem;
+                      font-weight: 600;
+                      color: var(--text-dark);
+                      margin-bottom: 8px;
+                    "
+                  >
+                    Today's Symptoms
+                  </div>
+                  <div class="symptoms-grid">
+                    <div class="symptom-chip" onclick="toggleSymptom(this)">
+                      <span class="sym-icon">😣</span>Cramps
+                    </div>
+                    <div class="symptom-chip" onclick="toggleSymptom(this)">
+                      <span class="sym-icon">💧</span>Bloating
+                    </div>
+                    <div class="symptom-chip" onclick="toggleSymptom(this)">
+                      <span class="sym-icon">😔</span>Mood
+                    </div>
+                    <div class="symptom-chip" onclick="toggleSymptom(this)">
+                      <span class="sym-icon">😴</span>Fatigue
+                    </div>
+                    <div class="symptom-chip" onclick="toggleSymptom(this)">
+                      <span class="sym-icon">🤕</span>Headache
+                    </div>
+                    <div class="symptom-chip" onclick="toggleSymptom(this)">
+                      <span class="sym-icon">✨</span>Energised
+                    </div>
+                  </div>
+                  <div style="margin-top: 13px">
+                    <button
+                      class="full-btn"
+                      onclick="showToast('✅ Cycle data saved!')"
+                    >
+                      Save Today's Log
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="tracker-card">
+                  <div
+                    style="
+                      font-size: 0.86rem;
+                      font-weight: 600;
+                      margin-bottom: 9px;
+                      color: var(--text-dark);
+                    "
+                  >
+                    March 2026
+                  </div>
+                  <div class="calendar-mini" id="cycleCal"></div>
+                  <div class="legend-row">
+                    <div class="legend-item">
+                      <div
+                        class="legend-dot"
+                        style="background: rgba(232, 160, 160, 0.6)"
+                      ></div>
+                      Period
+                    </div>
+                    <div class="legend-item">
+                      <div
+                        class="legend-dot"
+                        style="background: rgba(143, 173, 140, 0.5)"
+                      ></div>
+                      Ovulation
+                    </div>
+                    <div class="legend-item">
+                      <div
+                        class="legend-dot"
+                        style="background: rgba(143, 173, 140, 0.2)"
+                      ></div>
+                      Fertile
+                    </div>
+                  </div>
+                </div>
+                <div class="tracker-card">
+                  <div
+                    style="
+                      font-size: 0.86rem;
+                      font-weight: 600;
+                      margin-bottom: 8px;
+                      color: var(--text-dark);
+                    "
+                  >
+                    Cycle Insights
+                  </div>
+                  <div
+                    id="cycleInsights"
+                    style="
+                      font-size: 0.81rem;
+                      color: var(--text-mid);
+                      line-height: 1.7;
+                    "
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- DOCTOR -->
+        <section class="screen" id="screen-doctor">
+          <div class="page-inner">
+            <div class="section-header">
+              <div class="section-title">Doctor Consultation</div>
+              <div class="section-sub">Expert care, on your schedule</div>
+            </div>
+            <div class="search-bar">
+              <span class="search-icon">🔍</span
+              ><input type="text" placeholder="Search by name or specialty…" />
+            </div>
+            <div class="filter-row">
+              <div class="filter-chip active">All</div>
+              <div class="filter-chip">Gynaecology</div>
+              <div class="filter-chip">Hormones</div>
+              <div class="filter-chip">Mental Health</div>
+              <div class="filter-chip">Nutrition</div>
+            </div>
+            <div class="doctors-grid" id="doctorList"></div>
+          </div>
+        </section>
+
+        <!-- LOCATOR -->
+        <section class="screen" id="screen-locator">
+          <div class="page-inner">
+            <div class="section-header">
+              <div class="section-title">Find Us Near You</div>
+              <div class="section-sub">Vending machines & partner stores</div>
+            </div>
+            <div class="search-bar">
+              <span class="search-icon">📍</span
+              ><input type="text" placeholder="Enter your area or PIN code…" />
+            </div>
+            <div class="map-placeholder">
+              <div class="map-icon">🗺️</div>
+              <div class="map-text">Interactive map coming soon</div>
+            </div>
+            <div class="filter-row">
+              <div class="filter-chip active" onclick="filterLoc('all', this)">
+                All
+              </div>
+              <div class="filter-chip" onclick="filterLoc('vm', this)">
+                Vending Machines
+              </div>
+              <div class="filter-chip" onclick="filterLoc('store', this)">
+                Partner Stores
+              </div>
+            </div>
+            <div class="locations-grid" id="locationList"></div>
+          </div>
+        </section>
+
+        <!-- COMMUNITY -->
+        <section class="screen" id="screen-community">
+          <div
+            class="page-inner"
+            style="padding-left: 16px; padding-right: 16px"
+          >
+            <div class="chat-container">
+              <div class="chat-header">
+                <h2>💬 Nari Community</h2>
+                <p>A safe space for every woman</p>
+                <div class="online-count">
+                  <div class="online-dot"></div>
+                  <span class="online-text">347 members online now</span>
+                </div>
+              </div>
+              <div class="chat-messages" id="chatMessages"></div>
+              <div class="chat-input-row">
+                <input
+                  class="chat-input"
+                  id="chatInput"
+                  placeholder="Share your thoughts…"
+                  onkeydown="if (event.key === 'Enter') sendMsg();"
+                />
+                <button class="send-btn" onclick="sendMsg()">➤</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PICKUP -->
+        <section class="screen" id="screen-pickup">
+          <div class="page-inner">
+            <div class="pickup-hero">
+              <h2>♻️ Used Pad Pickup</h2>
+              <p>
+                Book a free eco-disposal pickup. We handle safe, dignified
+                recycling for the planet.
+              </p>
+              <div class="pickup-hero-icon">🌿</div>
+            </div>
+            <div class="pickup-layout">
+              <div>
+                <div class="pickup-form-card">
+                  <h3>Schedule a Pickup</h3>
+                  <div class="form-row-2">
+                    <div class="form-group">
+                      <label>Full Name</label
+                      ><input
+                        type="text"
+                        class="form-input"
+                        placeholder="Priya Sharma"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label>Phone Number</label
+                      ><input
+                        type="tel"
+                        class="form-input"
+                        placeholder="+91 98765 43210"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Pickup Address</label
+                    ><textarea
+                      class="form-textarea"
+                      placeholder="House no., Street, Area, City…"
+                    ></textarea>
+                  </div>
+                  <div class="form-row-2">
+                    <div class="form-group">
+                      <label>Preferred Date</label
+                      ><input type="date" class="form-input" />
+                    </div>
+                    <div class="form-group">
+                      <label>Time Slot</label
+                      ><select class="form-select">
+                        <option>9 AM – 12 PM</option>
+                        <option>12 PM – 3 PM</option>
+                        <option>3 PM – 6 PM</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Approx. Quantity</label
+                    ><select class="form-select">
+                      <option>1–2 bags</option>
+                      <option>3–5 bags</option>
+                      <option>5+ bags</option>
+                    </select>
+                  </div>
+                </div>
+                <button
+                  class="full-btn full-btn-green"
+                  onclick="showToast('🌿 Pickup booked successfully!')"
+                >
+                  Confirm Pickup Booking
+                </button>
+              </div>
+              <div>
+                <div class="impact-card">
+                  <div class="impact-icon">🌍</div>
+                  <div>
+                    <div class="impact-title">Your Environmental Impact</div>
+                    <div class="impact-desc">
+                      Each pickup keeps ~15 pads out of landfill. Join 12,000+
+                      women making a difference every month.
+                    </div>
+                  </div>
+                </div>
+                <div class="tracker-card" style="margin-bottom: 0">
+                  <div
+                    style="
+                      font-size: 0.86rem;
+                      font-weight: 600;
+                      margin-bottom: 9px;
+                      color: var(--text-dark);
+                    "
+                  >
+                    Why It Matters
+                  </div>
+                  <div
+                    style="
+                      font-size: 0.79rem;
+                      color: var(--text-mid);
+                      line-height: 1.75;
+                    "
+                  >
+                    🌱 Conventional pads take 500–800 years to decompose.<br />
+                    ♻️ Our process converts them to construction material.<br />
+                    💧 Zero chemicals released into waterways.<br />
+                    🤝 Supports local waste-management workers.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav">
+      <button class="nav-tab active" onclick="goTo('home')" id="tab-home">
+        <span class="nav-tab-icon">🏠</span
+        ><span class="nav-tab-label">Home</span>
+      </button>
+      <button class="nav-tab" onclick="goTo('products')" id="tab-products">
+        <span class="nav-tab-icon">🛍️</span
+        ><span class="nav-tab-label">Shop</span>
+      </button>
+      <button class="nav-tab" onclick="goTo('tracker')" id="tab-tracker">
+        <span class="nav-tab-icon">🌸</span
+        ><span class="nav-tab-label">Tracker</span>
+      </button>
+      <button class="nav-tab" onclick="goTo('doctor')" id="tab-doctor">
+        <span class="nav-tab-icon">👩‍⚕️</span
+        ><span class="nav-tab-label">Consult</span>
+      </button>
+      <button class="nav-tab" onclick="goTo('locator')" id="tab-locator">
+        <span class="nav-tab-icon">📍</span
+        ><span class="nav-tab-label">Locator</span>
+      </button>
+      <button class="nav-tab" onclick="goTo('community')" id="tab-community">
+        <span class="nav-tab-icon">💬</span
+        ><span class="nav-tab-label">Community</span>
+      </button>
+      <button class="nav-tab" onclick="goTo('pickup')" id="tab-pickup">
+        <span class="nav-tab-icon">♻️</span
+        ><span class="nav-tab-label">Pickup</span>
+      </button>
+    </nav>
+
+    <!-- CART DRAWER -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()">
+      <div class="cart-drawer" onclick="event.stopPropagation()">
+        <div class="cart-drawer-header">
+          <div class="cart-title">Your Cart 🛒</div>
+          <button class="cart-close" onclick="toggleCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+          <div class="empty-state">
+            <div class="empty-icon">🛒</div>
+            <div class="empty-text">
+              Your cart is empty.<br />Add some products!
+            </div>
+          </div>
+        </div>
+        <div class="cart-footer">
+          <div class="cart-total">
+            <span class="cart-total-label">Total</span
+            ><span class="cart-total-val" id="cartTotal">₹0</span>
+          </div>
+          <button
+            class="full-btn"
+            onclick="
+              showToast('✅ Order placed! Thank you 🌸');
+              cart = [];
+              updateCartBadge();
+              renderCart();
+            "
+          >
+            Checkout
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOOKING MODAL -->
+    <div class="booking-modal" id="bookingModal">
+      <div class="booking-sheet">
+        <div class="sheet-handle"></div>
+        <h3
+          style="
+            font-family: &quot;Cormorant Garamond&quot;, serif;
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+          "
+        >
+          Book Consultation
+        </h3>
+        <p
+          style="
+            font-size: 0.77rem;
+            color: var(--text-light);
+            margin-bottom: 13px;
+          "
+          id="bookingDocName"
+        ></p>
+        <div class="form-group">
+          <label>Select Date</label
+          ><input type="date" class="form-input" id="bookDate" />
+        </div>
+        <div
+          style="
+            font-size: 0.75rem;
+            color: var(--text-mid);
+            margin-bottom: 7px;
+            font-weight: 500;
+          "
+        >
+          Select Time
+        </div>
+        <div class="time-slots" id="bookTimeSlots"></div>
+        <div style="margin-top: 13px" class="form-group">
+          <label>Consultation Type</label
+          ><select class="form-select">
+            <option>Video Call</option>
+            <option>Audio Call</option>
+            <option>Chat</option>
+            <option>In-person</option>
+          </select>
+        </div>
+        <div style="margin-top: 14px; display: flex; gap: 9px">
+          <button
+            class="btn-outline"
+            style="flex: 1; padding: 11px"
+            onclick="closeBooking()"
+          >
+            Cancel
+          </button>
+          <button
+            class="btn-primary"
+            style="flex: 2; padding: 11px"
+            onclick="confirmBooking()"
+          >
+            Confirm Booking
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+      const PRODUCTS = [
+        {
+          id: 1,
+          name: "Ultra-Thin Organic Pads",
+          desc: "100% organic cotton, wings, leak-proof 8hrs",
+          price: 280,
+          emoji: "🌸",
+          category: "pads",
+          eco: ["Organic", "Biodegradable"],
+        },
+        {
+          id: 2,
+          name: "Menstrual Cup — S/M",
+          desc: "Medical-grade silicone, 10-year lifespan",
+          price: 599,
+          emoji: "🥤",
+          category: "cups",
+          eco: ["Zero Waste", "Reusable"],
+        },
+        {
+          id: 3,
+          name: "Period Comfort Tea",
+          desc: "Ashwagandha, ginger & chamomile for cramps",
+          price: 350,
+          emoji: "🍵",
+          category: "wellness",
+          eco: ["Herbal", "Vegan"],
+        },
+        {
+          id: 4,
+          name: "Bamboo Panty Liners",
+          desc: "Ultra-soft bamboo fibre, daily freshness",
+          price: 199,
+          emoji: "🎋",
+          category: "pads",
+          eco: ["Bamboo", "Compostable"],
+        },
+        {
+          id: 5,
+          name: "Intimate Wash pH Balance",
+          desc: "Gentle, dermatologist-tested, paraben-free",
+          price: 320,
+          emoji: "💧",
+          category: "hygiene",
+          eco: ["Paraben-Free", "Vegan"],
+        },
+        {
+          id: 6,
+          name: "Heating Patch (Pack of 5)",
+          desc: "Air-activated 8-hr warmth for cramps",
+          price: 249,
+          emoji: "🔥",
+          category: "wellness",
+          eco: ["Skin-safe"],
+        },
+        {
+          id: 7,
+          name: "Reusable Cloth Pads",
+          desc: "Organic cotton, washable, lasts 3+ years",
+          price: 449,
+          emoji: "🌿",
+          category: "pads",
+          eco: ["Reusable", "Zero Waste"],
+        },
+        {
+          id: 8,
+          name: "Iron & Folic Gummies",
+          desc: "Replenish nutrients lost during period",
+          price: 399,
+          emoji: "💊",
+          category: "wellness",
+          eco: ["Vegan", "GMP Certified"],
+        },
+      ];
+      const DOCTORS = [
+        {
+          id: 1,
+          name: "Dr. Ananya Krishnan",
+          spec: "Gynaecologist & Obstetrician",
+          emoji: "👩‍⚕️",
+          rating: 4.9,
+          reviews: 312,
+          exp: "12 yrs",
+          fee: "₹699",
+          nextAvail: "Today 3 PM",
+        },
+        {
+          id: 2,
+          name: "Dr. Priya Mehta",
+          spec: "Hormonal Health Specialist",
+          emoji: "🩺",
+          rating: 4.8,
+          reviews: 198,
+          exp: "9 yrs",
+          fee: "₹599",
+          nextAvail: "Tomorrow 10 AM",
+        },
+        {
+          id: 3,
+          name: "Dr. Sonal Verma",
+          spec: "Women's Mental Health",
+          emoji: "🧠",
+          rating: 4.9,
+          reviews: 423,
+          exp: "15 yrs",
+          fee: "₹799",
+          nextAvail: "Today 5 PM",
+        },
+        {
+          id: 4,
+          name: "Dr. Kavya Rao",
+          spec: "Nutrition & Reproductive Health",
+          emoji: "🥗",
+          rating: 4.7,
+          reviews: 156,
+          exp: "7 yrs",
+          fee: "₹499",
+          nextAvail: "Thu 11 AM",
+        },
+      ];
+      const LOCATIONS = [
+        {
+          id: 1,
+          name: "Nari Care Vending Machine",
+          addr: "Select CITYMALL, Connaught Place, New Delhi",
+          dist: "1.2 km",
+          type: "vm",
+          emoji: "🏧",
+        },
+        {
+          id: 2,
+          name: "Green Pharmacy Partner",
+          addr: "Khan Market, New Delhi - 110003",
+          dist: "2.4 km",
+          type: "store",
+          emoji: "🏪",
+        },
+        {
+          id: 3,
+          name: "Nari Care Vending Machine",
+          addr: "DLF CyberHub, Gurugram, Haryana",
+          dist: "3.8 km",
+          type: "vm",
+          emoji: "🏧",
+        },
+        {
+          id: 4,
+          name: "She Care Wellness Store",
+          addr: "Lajpat Nagar Central Market, New Delhi",
+          dist: "4.1 km",
+          type: "store",
+          emoji: "🏪",
+        },
+        {
+          id: 5,
+          name: "Nari Care Vending Machine",
+          addr: "Ambience Mall, Vasant Kunj, Delhi",
+          dist: "5.5 km",
+          type: "vm",
+          emoji: "🏧",
+        },
+        {
+          id: 6,
+          name: "Bloom Organic Store",
+          addr: "Sector 18, Noida - 201301",
+          dist: "6.2 km",
+          type: "store",
+          emoji: "🌿",
+        },
+      ];
+      const CHAT_SEED = [
+        {
+          user: "Riya S.",
+          avatar: "R",
+          msg: "Just started using the menstrual cup — no going back! 🥤",
+          time: "2:14 PM",
+          own: false,
+        },
+        {
+          user: "Meera T.",
+          avatar: "M",
+          msg: "The period comfort tea is amazing for cramps! 💕",
+          time: "2:18 PM",
+          own: false,
+        },
+        {
+          user: "Anika J.",
+          avatar: "A",
+          msg: "Best pad for overnight? I keep getting leaks 😅",
+          time: "2:22 PM",
+          own: false,
+        },
+        {
+          user: "Priya K.",
+          avatar: "P",
+          msg: "@Anika try the Ultra-Thin ones with wings! Total game changer",
+          time: "2:25 PM",
+          own: false,
+        },
+        {
+          user: "You",
+          avatar: "Y",
+          msg: "This community is so helpful! 🌸 Just booked my first consult",
+          time: "2:28 PM",
+          own: true,
+        },
+      ];
+      let cart = [],
+        currentFilter = "all",
+        locFilter = "all",
+        currentBookDoc = null;
+
+      function goTo(tab) {
+        document
+          .querySelectorAll(".screen")
+          .forEach((s) => s.classList.remove("active"));
+        document
+          .querySelectorAll(".nav-tab,.sidebar-tab")
+          .forEach((t) => t.classList.remove("active"));
+        document.getElementById("screen-" + tab).classList.add("active");
+        ["tab-", "stab-"].forEach((p) => {
+          const e = document.getElementById(p + tab);
+          if (e) e.classList.add("active");
+        });
+        if (tab === "community") renderChat();
+        window.scrollTo(0, 0);
+      }
+      function renderProducts(list, cid) {
+        const g = document.getElementById(cid);
+        if (!list.length) {
+          g.innerHTML =
+            '<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-text">No products found.</div></div>';
+          return;
+        }
+        g.innerHTML = list
+          .map(
+            (p) =>
+              `<div class="product-card"><div class="product-img">${p.emoji}<span class="eco-badge">🌿 Eco</span></div><div class="product-body"><div class="eco-icons">${p.eco.map((e) => `<span class="eco-chip">${e}</span>`).join("")}</div><div class="product-name">${p.name}</div><div class="product-desc">${p.desc}</div><div class="product-footer"><div class="product-price">₹${p.price}</div><button class="add-btn" onclick="addToCart(${p.id})">+</button></div></div></div>`,
+          )
+          .join("");
+      }
+      function filterProducts(q) {
+        const base =
+          currentFilter === "all"
+            ? PRODUCTS
+            : PRODUCTS.filter((p) => p.category === currentFilter);
+        renderProducts(
+          q
+            ? base.filter((p) => p.name.toLowerCase().includes(q.toLowerCase()))
+            : base,
+          "allProductsGrid",
+        );
+      }
+      function setFilter(cat, el) {
+        currentFilter = cat;
+        document
+          .querySelectorAll("#filterRow .filter-chip")
+          .forEach((c) => c.classList.remove("active"));
+        el.classList.add("active");
+        renderProducts(
+          cat === "all" ? PRODUCTS : PRODUCTS.filter((p) => p.category === cat),
+          "allProductsGrid",
+        );
+      }
+      function addToCart(id) {
+        const p = PRODUCTS.find((x) => x.id === id),
+          ex = cart.find((c) => c.id === id);
+        if (ex) ex.qty++;
+        else cart.push({ ...p, qty: 1 });
+        updateCartBadge();
+        renderCart();
+        showToast(`🛒 ${p.name} added!`);
+      }
+      function updateCartBadge() {
+        document.getElementById("cartBadge").textContent = cart.reduce(
+          (a, c) => a + c.qty,
+          0,
+        );
+      }
+      function renderCart() {
+        const el = document.getElementById("cartItems");
+        if (!cart.length) {
+          el.innerHTML =
+            '<div class="empty-state"><div class="empty-icon">🛒</div><div class="empty-text">Your cart is empty.</div></div>';
+          document.getElementById("cartTotal").textContent = "₹0";
+          return;
+        }
+        el.innerHTML = cart
+          .map(
+            (c) =>
+              `<div class="cart-item"><div class="cart-item-img">${c.emoji}</div><div style="flex:1"><div class="cart-item-name">${c.name}</div><div class="cart-item-price">₹${c.price}</div><div class="cart-qty"><button class="qty-btn" onclick="changeQty(${c.id},-1)">−</button><span class="qty-num">${c.qty}</span><button class="qty-btn" onclick="changeQty(${c.id},1)">+</button></div></div></div>`,
+          )
+          .join("");
+        document.getElementById("cartTotal").textContent =
+          "₹" + cart.reduce((a, c) => a + c.price * c.qty, 0);
+      }
+      function changeQty(id, d) {
+        const i = cart.findIndex((c) => c.id === id);
+        if (i === -1) return;
+        cart[i].qty += d;
+        if (cart[i].qty <= 0) cart.splice(i, 1);
+        updateCartBadge();
+        renderCart();
+      }
+      function toggleCart() {
+        document.getElementById("cartOverlay").classList.toggle("open");
+      }
+      function renderDoctors() {
+        document.getElementById("doctorList").innerHTML = DOCTORS.map(
+          (d) =>
+            `<div class="doctor-card" onclick="openBooking(${d.id})"><div class="doctor-avatar">${d.emoji}</div><div style="flex:1"><div class="doctor-name">${d.name}</div><div class="doctor-specialty">${d.spec}</div><div class="doctor-rating">⭐ ${d.rating} <span style="color:var(--text-light)">(${d.reviews})</span></div><div class="doctor-meta">${d.exp} · ${d.fee}/session</div><div class="avail-badge">🟢 ${d.nextAvail}</div></div></div>`,
+        ).join("");
+      }
+      function openBooking(id) {
+        currentBookDoc = DOCTORS.find((d) => d.id === id);
+        document.getElementById("bookingDocName").textContent =
+          `${currentBookDoc.name} · ${currentBookDoc.spec}`;
+        document.getElementById("bookTimeSlots").innerHTML = [
+          "9:00 AM",
+          "10:30 AM",
+          "12:00 PM",
+          "2:00 PM",
+          "3:30 PM",
+          "5:00 PM",
+        ]
+          .map(
+            (s) =>
+              `<div class="time-slot" onclick="selectSlot(this)">${s}</div>`,
+          )
+          .join("");
+        document.getElementById("bookingModal").classList.add("open");
+      }
+      function selectSlot(el) {
+        document
+          .querySelectorAll(".time-slot")
+          .forEach((s) => s.classList.remove("selected"));
+        el.classList.add("selected");
+      }
+      function closeBooking() {
+        document.getElementById("bookingModal").classList.remove("open");
+      }
+      function confirmBooking() {
+        closeBooking();
+        showToast("✅ Consultation booked successfully!");
+      }
+      function renderLocations(list) {
+        document.getElementById("locationList").innerHTML = list
+          .map(
+            (l) =>
+              `<div class="location-card"><div class="location-icon-wrap">${l.emoji}</div><div><div class="loc-type-badge ${l.type === "vm" ? "type-vm" : "type-store"}">${l.type === "vm" ? "VENDING MACHINE" : "PARTNER STORE"}</div><div class="loc-name">${l.name}</div><div class="loc-addr">${l.addr}</div><div class="loc-dist">📍 ${l.dist} · <span style="color:var(--sage-dark);cursor:pointer">Get Directions →</span></div></div></div>`,
+          )
+          .join("");
+      }
+      function filterLoc(type, el) {
+        document
+          .querySelectorAll("#screen-locator .filter-chip")
+          .forEach((c) => c.classList.remove("active"));
+        el.classList.add("active");
+        renderLocations(
+          type === "all" ? LOCATIONS : LOCATIONS.filter((l) => l.type === type),
+        );
+      }
+      function buildCalendar() {
+        const days = ["S", "M", "T", "W", "T", "F", "S"];
+        let html = days
+          .map((d) => `<div class="cal-day-label">${d}</div>`)
+          .join("");
+        const ps = 5;
+        for (let d = 1; d <= 31; d++) {
+          const iP = d >= ps && d <= ps + 4,
+            iO = d === ps + 13 || d === ps + 14,
+            iF = d >= ps + 11 && d <= ps + 16 && !iO,
+            iT = d === 12;
+          let c = "cal-day";
+          if (iP) c += " period";
+          if (iO) c += " ovulation";
+          if (iF) c += " fertile";
+          if (iT) c += " today";
+          html += `<div class="${c}">${d}</div>`;
+        }
+        document.getElementById("cycleCal").innerHTML = html;
+      }
+      function updateCycle() {
+        const day = 14;
+        document.getElementById("cycleDay").textContent = day;
+        document.getElementById("cycleProgress").style.transform =
+          `rotate(${-90 + (day / 28) * 360}deg)`;
+        document.getElementById("cycleInsights").innerHTML = [
+          "🌸 <strong>Phase:</strong> Follicular — energy rising!",
+          "💪 Great time for exercise & new habits.",
+          "🍎 Focus on iron-rich foods: greens, lentils, seeds.",
+          "📅 <strong>Next period:</strong> April 2, 2026",
+          "✨ <strong>Fertile window:</strong> March 18–23",
+        ]
+          .map((i) => `<div style="margin-bottom:7px;">${i}</div>`)
+          .join("");
+      }
+      function setPhase(el) {
+        document
+          .querySelectorAll(".phase-pill")
+          .forEach((p) => p.classList.remove("phase-active"));
+        el.classList.add("phase-active");
+      }
+      function toggleSymptom(el) {
+        el.classList.toggle("selected");
+      }
+      function renderChat() {
+        const el = document.getElementById("chatMessages");
+        el.innerHTML = CHAT_SEED.map(
+          (m) =>
+            `<div class="msg ${m.own ? "own" : ""}"><div class="msg-avatar">${m.avatar}</div><div class="msg-bubble">${!m.own ? `<div class="msg-name">${m.user}</div>` : ""}<div class="msg-text">${m.msg}</div><div class="msg-time">${m.time}</div></div></div>`,
+        ).join("");
+        el.scrollTop = el.scrollHeight;
+      }
+      function sendMsg() {
+        const inp = document.getElementById("chatInput"),
+          txt = inp.value.trim();
+        if (!txt) return;
+        const now = new Date(),
+          h = now.getHours(),
+          mn = String(now.getMinutes()).padStart(2, "0");
+        CHAT_SEED.push({
+          user: "You",
+          avatar: "Y",
+          msg: txt,
+          time: `${h}:${mn} ${h >= 12 ? "PM" : "AM"}`,
+          own: true,
+        });
+        inp.value = "";
+        renderChat();
+        setTimeout(() => {
+          const rs = [
+            {
+              user: "Riya S.",
+              avatar: "R",
+              msg: "Thank you for sharing! 🌸 We're all in this together.",
+            },
+            {
+              user: "Meera T.",
+              avatar: "M",
+              msg: "Such a great point! Have you tried the cycle tracker? 💕",
+            },
+            {
+              user: "Anita P.",
+              avatar: "A",
+              msg: "Welcome to Nari community! 🌺",
+            },
+          ];
+          const r = rs[Math.floor(Math.random() * rs.length)],
+            t2 = new Date();
+          CHAT_SEED.push({
+            ...r,
+            time: `${t2.getHours()}:${String(t2.getMinutes()).padStart(2, "0")} PM`,
+            own: false,
+          });
+          renderChat();
+        }, 1600);
+      }
+      let _tt;
+      function showToast(msg) {
+        const el = document.getElementById("toast");
+        el.textContent = msg;
+        el.classList.add("show");
+        clearTimeout(_tt);
+        _tt = setTimeout(() => el.classList.remove("show"), 2800);
+      }
+      (function init() {
+        renderProducts(PRODUCTS.slice(0, 4), "featuredGrid");
+        renderProducts(PRODUCTS, "allProductsGrid");
+        renderDoctors();
+        renderLocations(LOCATIONS);
+        buildCalendar();
+        updateCycle();
+        const today = new Date(),
+          y = today.getFullYear(),
+          m = String(today.getMonth() + 1).padStart(2, "0"),
+          d = String(Math.max(1, today.getDate() - 7)).padStart(2, "0");
+        const el = document.getElementById("periodStart");
+        if (el) el.value = `${y}-${m}-${d}`;
+      })();
+    </script>
+  </body>
+</html>
